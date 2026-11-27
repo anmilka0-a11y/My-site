@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#180d27">
+<title>Магия Огненной Козы — новогодняя открытка</title>
+<style>
+:root{--gold:#ffd778;--cream:#fff5df;--red:#e64b43;--pink:#ff9d86;--night:#180d27}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:var(--cream);font-family:Georgia,"Times New Roman",serif;background:radial-gradient(ellipse at 50% 0%,#62304b 0,#28152f 42%,#100b20 100%);overflow-x:hidden}
+button,input{font:inherit}
+#snow{position:fixed;inset:0;pointer-events:none;z-index:5;overflow:hidden}
+.flake{position:absolute;top:-15px;color:#fff8e9;opacity:.85;animation:fall linear infinite;text-shadow:0 0 8px white}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+.glow{position:fixed;width:340px;height:340px;border-radius:50%;filter:blur(90px);opacity:.17;pointer-events:none}
+.glow.one{background:#ff5a32;top:10%;left:-130px}.glow.two{background:#ffc65c;right:-150px;bottom:5%}
+main{position:relative;z-index:2;min-height:100vh;display:grid;place-items:center;padding:28px 16px}
+.panel{width:min(760px,100%);position:relative;text-align:center;padding:clamp(28px,6vw,58px) clamp(20px,6vw,64px);border:1px solid #f8d88c88;border-radius:28px;background:linear-gradient(145deg,#381b39eF,#1b1029f2);box-shadow:0 25px 90px #0008,inset 0 0 45px #ffcb6710;overflow:hidden}
+.panel:before,.panel:after{content:"✦";position:absolute;color:var(--gold);font-size:28px;opacity:.8}.panel:before{top:18px;left:22px}.panel:after{bottom:18px;right:22px}
+.eyebrow{color:var(--gold);letter-spacing:.25em;text-transform:uppercase;font:600 11px Arial,sans-serif}
+h1{font-size:clamp(35px,7vw,66px);line-height:1.02;margin:17px 0;color:#fff0c8;text-shadow:0 4px 25px #ff8a4d66}
+h2{font-size:clamp(27px,5vw,42px);color:#ffe4a5;margin:12px 0 20px}
+p{font:16px/1.7 Arial,sans-serif;color:#f8e8dd}
+.hero{font-size:clamp(65px,12vw,110px);line-height:1.2;filter:drop-shadow(0 0 22px #ff8b3d88);animation:bob 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-9px) rotate(2deg)}}
+input{width:min(360px,100%);padding:16px 18px;border-radius:999px;border:1px solid #ffd77899;background:#fff9ef;color:#382038;text-align:center;outline:none;font:16px Arial,sans-serif;margin:18px 0 12px}
+input:focus{box-shadow:0 0 0 4px #ffd77833}
+.btn{border:0;border-radius:999px;padding:15px 27px;background:linear-gradient(100deg,#ffb95e,#ffe49a);color:#49233a;font:bold 15px Arial,sans-serif;cursor:pointer;box-shadow:0 8px 25px #ffb95e33;transition:.2s}
+.btn:hover{transform:translateY(-3px);box-shadow:0 12px 30px #ffb95e66}
+.small{font:12px Arial,sans-serif;color:#d8bdc8;margin-top:16px}
+.hidden{display:none}
+.greeting{font-size:clamp(19px,3.4vw,25px);color:#fff0d9}
+.signature{color:var(--gold);font-style:italic;font-size:19px;margin-top:25px}
+.divider{color:var(--gold);letter-spacing:.6em;margin:22px 0}
+.wish{margin:24px auto 0;padding:17px;border:1px solid #ffd77855;border-radius:16px;background:#ffdc8c0c;max-width:500px}
+.wish strong{color:var(--gold)}
+footer{position:relative;z-index:2;text-align:center;padding:0 12px 22px;color:#bda9bd;font:11px Arial,sans-serif}
+.spark{display:inline-block;animation:twinkle 1.6s ease-in-out infinite alternate}
+@keyframes twinkle{to{opacity:.3;transform:scale(.7)}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="glow one"></div><div class="glow two"></div><div id="snow" aria-hidden="true"></div>
+<main>
+<section class="panel" id="welcome">
+  <div class="eyebrow">Праздник уже близко · 2027</div>
+  <div class="hero" aria-hidden="true">🐐🔥</div>
+  <h1>Магия<br>Огненной Козы</h1>
+  <p>Впереди год ярких идей, смелых мечтаний<br>и маленьких чудес. А эта открытка — специально для тебя!</p>
+  <form id="nameForm">
+    <label for="guestName" class="small">Как тебя зовут?</label><br>
+    <input id="guestName" name="name" maxlength="24" autocomplete="given-name" placeholder="Введи своё имя" required>
+    <br><button class="btn" type="submit">✨ Открыть поздравление</button>
+  </form>
+  <div class="small">Нажми — и начнётся новогоднее волшебство</div>
+</section>
+
+<section class="panel hidden" id="card" aria-live="polite">
+  <div class="eyebrow"><span class="spark">✦</span> персональное поздравление <span class="spark">✦</span></div>
+  <div class="hero" aria-hidden="true">🎄🐐🔥</div>
+  <h2>С Новым годом,<br><span id="recipient">друг</span>!</h2>
+  <p class="greeting">Пусть Огненная Коза принесёт тебе год, полный вдохновения, добрых встреч и удивительных открытий!</p>
+  <div class="divider">✧ ✧ ✧</div>
+  <div class="wish">
+    <p><strong>Твоё новогоднее пожелание:</strong></p>
+    <p id="randomWish">Пусть каждый день начинается с улыбки, а мечты находят дорогу к исполнению!</p>
+    <button class="btn" id="wishButton" type="button">🎁 Ещё одно пожелание</button>
+  </div>
+  <p class="signature">С теплом и верой в чудеса ✨</p>
+  <button class="btn" id="backButton" type="button">↶ На главную</button>
+</section>
+</main>
+<footer>Сделано с праздничным настроением · Новогодняя открытка 2027</footer>
+<script>
+const snow = document.getElementById('snow');
+for(let i=0;i<55;i++){
+  const f=document.createElement('span'); f.className='flake';
+  f.textContent=Math.random()>.5?'❄':'✧';
+  f.style.left=Math.random()*100+'%';
+  f.style.fontSize=(8+Math.random()*15)+'px';
+  f.style.animationDuration=(7+Math.random()*12)+'s';
+  f.style.animationDelay=(-Math.random()*18)+'s';
+  snow.appendChild(f);
+}
+const wishes=[
+ 'Пусть смелые идеи превращаются в большие победы!',
+ 'Желаю тёплых встреч, искреннего смеха и уютных вечеров!',
+ 'Пусть удача освещает путь, а рядом всегда будут близкие люди!',
+ 'Пусть в новом году будет больше поводов гордиться собой!',
+ 'Желаю вдохновения, радости и исполнения самых заветных желаний!',
+ 'Пусть каждый день приносит что-то доброе, яркое и неожиданное!'
+];
+const form=document.getElementById('nameForm');
+form.addEventListener('submit',e=>{
+ e.preventDefault();
+ const name=document.getElementById('guestName').value.trim();
+ if(!name)return;
+ document.getElementById('recipient').textContent=name;
+ document.getElementById('welcome').classList.add('hidden');
+ document.getElementById('card').classList.remove('hidden');
+ window.scrollTo({top:0,behavior:'smooth'});
+});
+document.getElementById('wishButton').addEventListener('click',()=>{
+ const el=document.getElementById('randomWish');
+ let next=el.textContent;
+ while(wishes.length>1 && next===el.textContent) next=wishes[Math.floor(Math.random()*wishes.length)];
+ el.textContent=next;
+});
+document.getElementById('backButton').addEventListener('click',()=>{
+ document.getElementById('card').classList.add('hidden');
+ document.getElementById('welcome').classList.remove('hidden');
+ document.getElementById('guestName').focus();
+});
+</script>
+</body>
+</html>
